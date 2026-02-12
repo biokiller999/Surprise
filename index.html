@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nikita, Be My Valentine? 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 360px;
+      width: 90%;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 26px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+    #no {
+      background: #ccc;
+      position: absolute;
+    }
+    .memes {
+      display: none;
+      margin-top: 20px;
+    }
+    .memes img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1>Nikita, will you be my Valentine? 💖</h1>
+    <button id="yes">Yes 😍</button>
+    <button id="no">No 🙄</button>
+
+    <div class="memes" id="memes">
+      
+      <p>I knew you’d say yes 😌❤️<p>
+      <h2>Get ready for the night of your life 😈🍑🍆<h2>
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3M1c3kwZTV4c3VrNWQ1ZjZ3dWRrbjU2dHlzaWkyaTh0a3Iyc2plYyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/lYpDhfoc7N5XjykKIt/giphy.gif" alt="meme1">
+      
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const memes = document.getElementById("memes");
+    const card = document.getElementById("card");
+
+    function moveNo() {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 60);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("click", moveNo);
+
+    function playLoveSound() {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.setValueAtTime(880, ctx.currentTime);
+      g.gain.setValueAtTime(0.001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.start();
+      o.stop(ctx.currentTime + 0.6);
+    }
+
+    yesBtn.addEventListener("click", () => {
+      playLoveSound();
+      memes.style.display = "block";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      card.querySelector("h1").innerText = "I love you, Nikita ❤️";
+    });
+  </script>
+
+</body>
+</html>
